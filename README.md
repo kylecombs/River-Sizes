@@ -59,7 +59,7 @@ function riverSizes(matrix) {
 	for (let i = 0; i < matrix.length; i++) {
 		for (let j = 0; j < matrix[0].length; j++) {
 			//If we have looked at this node before, skip it
-			if (visited[i][j]) continue;
+			if (visitedNodes[i][j]) continue;
 			//If the node has a value of 1 and has never been visited, investigate it
 			visitRiver(matrix, i, j, visitedNodes, sizes);
 		}
@@ -79,7 +79,7 @@ function visitRiver(matrix, i, j, visitedNodes, sizes) {
 		[i, j] = currentNode
 
 		//If we have looked at this node before, skip it. If not, mark it as visited.
-		if (visited(i, j)) continue;
+		if (visitedNodes[i][j])) continue;
 		visited[i][j] = true;
 
 		//Account for the current node in our currentRiverSize counter
@@ -87,12 +87,12 @@ function visitRiver(matrix, i, j, visitedNodes, sizes) {
 		currentRiverSize++;
 
 		//Add unvisited neighbors to the stack
-		getUnvisitedNeighbors(matrix, i, j, visited, nodesToExplore)
+		getUnvisitedNeighbors(matrix, i, j, visitedNodes, nodesToExplore)
 	}
 	sizes.push(currentRiverSize);
 }
 
-function getUnvisitedNeighbors(matrix, i, j, visited, nodesToExplore) {
+function getUnvisitedNeighbors(matrix, i, j, visitedNodes, nodesToExplore) {
 	//Validate the i and j inputs
 	if (i > 0 && !visited[i-1][j]) nodesToExplore.push([i-1, j]);
 	if (i < matrix.length - 1 && !visited[i+1][j]) nodesToExplore.push([i+1, j]);
